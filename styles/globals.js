@@ -14,6 +14,7 @@ export const injectGlobalStyles = css`
   */
   * {
     margin: 0;
+    padding: 0pc;
   }
   /*
     3. Allow percentage-based heights in the application
@@ -22,7 +23,6 @@ export const injectGlobalStyles = css`
   body,
   #__next {
     height: 100%;
-    font-size: ;
   }
   /*
     Typographic tweaks!
