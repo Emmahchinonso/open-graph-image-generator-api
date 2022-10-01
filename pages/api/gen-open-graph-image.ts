@@ -1,4 +1,5 @@
-const playwright = require("playwright-aws-lambda");
+import playwright from "playwright-core";
+import chromium from "chrome-aws-lambda";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
@@ -11,8 +12,14 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  console.log("open graph image call");
-  const browser = await playwright.launchChromium();
+  const browser = await playwright.chromium.launch({
+    args: chromium.args,
+    executablePath:
+      process.env.NODE_ENV !== "development"
+        ? await chromium.executablePath
+        : "/usr/bin/chromium",
+    headless: process.env.NODE_ENV !== "development" ? chromium.headless : true,
+  });
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.setContent(`<!DOCTYPE html>
@@ -22,7 +29,7 @@ export default async function handler(
         </head>
         <body>
             <div id="corgi>
-            Hello
+            <div>Hello world</div>
             </div>
         </body>
     </html>
