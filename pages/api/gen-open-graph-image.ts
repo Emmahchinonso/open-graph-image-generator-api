@@ -1,6 +1,6 @@
 // import puppeteer from "puppeteer-core";
 // import chrome from "chrome-aws-lambda";
-import playwright from "playwright-aws-lambda";
+const playwright = require("playwright-aws-lambda");
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = Buffer | string;
@@ -59,6 +59,6 @@ export default async function handler(
   res.setHeader("Content-Type", "image/png");
   res.setHeader("Content-Length", screenShotBuffer.length.toString());
 
-  res.status(200).send(screenShotBuffer.toString("base64"));
+  res.status(200).send(screenShotBuffer.toString());
   await browser.close();
 }
