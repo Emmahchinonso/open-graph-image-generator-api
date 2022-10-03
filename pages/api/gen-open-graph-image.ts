@@ -1,5 +1,3 @@
-// import puppeteer from "puppeteer-core";
-// import chrome from "chrome-aws-lambda";
 const playwright = require("playwright-aws-lambda");
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -9,21 +7,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  // const options = process.env.AWS_REGION
-  //   ? {
-  //       args: chrome.args,
-  //       executablePath: await chrome.executablePath,
-  //       headless: chrome.headless,
-  //     }
-  //   : {
-  //       args: [],
-  //       executablePath:
-  //         process.platform === "win32"
-  //           ? "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
-  //           : process.platform === "linux"
-  //           ? "/usr/bin/google-chrome"
-  //           : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-  //     };
   const browser = await playwright.launchChromium();
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -44,9 +27,6 @@ export default async function handler(
 
   await page.setContent(html);
 
-  // const rootContainer = await page.$("#root");
-  // const boundingRect = await rootContainer?.boundingBox();
-
   const boundingRect = await page.evaluate(() => {
     const rootElement = document.getElementById("root");
     const { x, y, width, height } =
@@ -59,6 +39,7 @@ export default async function handler(
   res.setHeader("Content-Type", "image/png");
   res.setHeader("Content-Length", screenShotBuffer.length.toString());
 
-  res.status(200).send(screenShotBuffer.toString());
+  res.status(200).send(screenShotBuffer);
+  await context.close();
   await browser.close();
 }
