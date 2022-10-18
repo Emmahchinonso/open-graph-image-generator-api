@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { COLORS } from "@/libs/constants";
 import { injectGlobalStyles } from "@/styles/globals";
 import { Textfit } from "react-textfit";
+import { render } from "react-dom";
 
 const OpenGraphImage = () => {
   return (
@@ -78,5 +79,7 @@ const ContentMeta = styled.div`
   justify-content: space-between;
   font-size: 24px;
 `;
+
+render(<OpenGraphImage />, document?.getElementById("root"));
 
 export default OpenGraphImage;

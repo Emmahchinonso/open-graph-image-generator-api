@@ -1,5 +1,7 @@
-const playwright = require("playwright-aws-lambda");
 import type { NextApiRequest, NextApiResponse } from "next";
+const playwright = require("playwright-aws-lambda");
+const fs = require("fs");
+const script = fs.readFileSync("../../image.ts", "utf-8");
 
 type Data = Buffer | string;
 
@@ -24,8 +26,8 @@ export default async function handler(
         </body>
     </html>
   `;
-
   await page.setContent(html);
+  await page.addScriptTag({ content: script });
 
   const boundingRect = await page.evaluate(() => {
     const rootElement = document.getElementById("root");
