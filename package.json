@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "dev:local": "vercel dev",
-    "build": "rollup -c rollup.config.js",
+    "build": "next build",
+    "postbuild": "rollup -c rollup.config.js",
     "start": "next start",
     "lint": "next lint"
   },
