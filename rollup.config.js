@@ -9,7 +9,7 @@ import ReactDOM from "react-dom";
 
 const config = {
   input: "components/OpenGraphImage.tsx",
-  output: [{ file: "image.ts", format: "iife" }],
+  output: [{ file: "image.js", format: "iife" }],
   plugins: [
     resolve({
       preferBuiltins: true,

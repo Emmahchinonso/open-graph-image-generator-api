@@ -30,7 +30,7 @@ export default async function handler(
   await page.addScriptTag({ content: script });
 
   const boundingRect = await page.evaluate(() => {
-    const rootElement = document.getElementById("root");
+    const rootElement = page.locator("#root");
     const { x, y, width, height } =
       rootElement?.children[0].getBoundingClientRect()!;
     return { x, y, width, height };

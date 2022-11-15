@@ -1,8 +1,9 @@
 import OpenGraphImage from "@/components/OpenGraphImage";
 import type { NextPage } from "next";
+import React from "react";
 
 const Home: NextPage = () => {
-  return <OpenGraphImage />;
+  return <></>;
 };
 
 export default Home;
